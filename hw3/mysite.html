@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title>mysite</title>
+    
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1561.2">
+    
+  <style type="text/css">
+      html, body
+      {
+          width: 100%;
+          height: 100%;
+          margin: 0;
+      }
+      .bgImg1, .bgImg2
+      {
+          background-attachment: fixed;
+          background-repeat: no-repeat;
+          margin-bottom: 0;
+      }
+      .bgImg1
+      {
+          background-image: url("http://cs-server.usc.edu:45678/hw/hw3/images/image6.jpg");
+          background-clip: border-box;
+          background-position: -350px;
+          width: 1193px;
+          min-height: 650px;
+          background-size: 1900px;
+          margin: 0;
+      }
+      .bgImg2
+      {
+          background-image: url("http://cs-server.usc.edu:45678/hw/hw3/images/image5.jpg");
+          background-position: center;
+          background-size: cover;
+          min-height: 85%;
+          opacity: 0.8;
+      }
+      @media only screen and (max-device-width:1024px)
+      {
+          .bgImh1, .bgImg2
+          {
+              background-attachment: scroll;
+          }
+      }
+      #secondD
+      {
+          background-color: white;
+          width: 78%;
+          min-height: 100%;
+          margin: auto;
+          position: relative;
+      }
+      .secondD1
+      {
+          width: 50%;
+          float: left;
+      }
+      .secondD2
+      {
+          width: 50%;
+          float: right;
+          position: relative;
+          margin-top: 5%;
+      }
+      .upperD
+      {
+          background-color: white;
+          width: 90%;
+          height: 100%;
+          margin: auto;
+          position: relative;
+          clear: both;
+      }
+      .upperD1
+      {
+          background-color: white;
+          width: 100%;
+          height: auto;
+          margin: auto;
+          margin-top: 2.5%;
+      }
+      .UpperDiv
+      {
+          width: 100%;
+          margin: auto;
+          text-align: center;
+          margin-bottom: 5%;
+          margin-top: 10%;
+          
+      }
+      .withCa
+      {
+          background-image: url("http://cs-server.usc.edu:45678/hw/hw3/images/image7.jpg");
+          width: 100%;
+          min-height: 100%;
+          position: relative;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size:contain;
+          margin: auto;
+      }
+      .lastD
+      {
+          background-color: rgb(192,157,82);
+          height: 36%;
+          margin: 0;
+          position: relative;
+          padding: 0;
+          clear: both;
+          top: -5%;
+      }
+      .captionD
+      {
+          position: absolute;
+          background-color: white;
+          width: 38%;
+          height: 23%;
+          margin: 0;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          text-align: center;
+          vertical-align: middle;
+      }
+      .border
+      {
+          border-bottom: 1px;
+          border-bottom-style: solid;
+          border-bottom-color: rgb(234,234,234);
+          border-top: 0px;
+      }
+      .blank
+      {
+          min-height: 10%;
+      }
+      
+      table
+      {
+          margin: auto;
+          width: 80%;
+          height: 45px;
+      }
+      td
+      {
+          text-align: center;
+          width: 20%;
+      }
+      
+      img
+      {
+          width: 100%;
+          height: auto;
+      }
+      .leftImg
+      {
+          float: left;
+          width: 95%;
+      }
+      #leftImg1
+      {
+          margin: 25% 0 0 0;
+      }
+      #leftImg2
+      {
+          margin: 10% 0 18% 0;
+      }
+      .rightImg
+      {
+          float: right;
+          width: 95%;
+      }
+      #rightImg1
+      {
+          margin: 20% 0 0 0;
+      }
+      #rightImg2
+      {
+          margin: 10% 0 0 0;
+      }
+      
+      h1
+      {
+          font-size: 3.4em;
+          font-family: helvetica;
+          text-align: center;
+          font-weight:400;
+          line-height: 0;
+          color: rgb(192,157,82);
+      }
+      h2
+      {
+          font-family: "Libre baskerville";
+          font-size: 2.1em;
+          font-stretch: extra-expanded;
+          line-height: 5px;
+          font-weight: 300;
+      }
+      h3
+      {
+          font-family: "Libre baskerville";
+          font-style: oblique;
+          font-size: 2.3em;
+          font-weight: 500;
+          color: rgb(192,157,82);
+          margin: 0;
+      }
+      h4
+      {
+          text-align: left;
+          margin-left: 64%;
+          font-family: helvetica;
+          line-height: 0;
+          color: white;
+          font-size: 0.8em;
+          font-weight: 300;
+      }
+      h2, h5
+      {
+          vertical-align: middle;
+      }
+      .h5style
+      {
+          font-family: helvetica;
+          font-size: 0.7em;
+          font-weight: 400;
+      }
+      .h3size
+      {
+          font-size: 2.3em;
+      }
+      .tittleP
+      {
+          margin-left: 14%;
+          font-family: helvetica;
+          line-height: 50%;
+          font-size: 0.8em;
+      }
+      h7
+      {
+          font-family: helvetica;
+          vertical-align: middle;
+          padding-top: 17%;
+          line-height: 0;
+          color: darkgrey;
+          font-size: 0.7em;
+          font-weight: 300;
+          letter-spacing: 1px;
+      }
+      .smallP
+      {
+          font-family: helvetica;
+          letter-spacing: 2px;
+          font-size: 0.7em;
+      }
+      p
+      {
+          font-family: helvetica;
+          line-height: 5px;
+          letter-spacing: 1px;
+          font-size: 0.9em;
+      }
+      
+      a
+      {
+          font-family: helvetica;
+          text-decoration: none;
+      }
+      .a2:link
+      {
+          color: black;
+      }
+      .a2:hover
+      {
+          opacity: 0.2;
+      }
+      .linkS
+      {
+          font-size: 0.9em;
+          text-decoration-line: none;
+          font-weight: 500;
+      }
+      .linkS:link
+      {
+          color: darkgray;
+      }
+      .linkS:hover
+      {
+          color: rgb(197,168,114);
+      }
+      .rightW
+      {
+          margin-left: 7%;
+      }
+
+  </style>
+</head>
+    
+    
+<body>
+    
+    
+    <table><tr><th>Category</th><th>Name</th><th>Address</th></tr>
+    </table>
+    
+    
+    
+    
+    <div class="upperD1">
+        <p class="tittleP">332 Keawe Street</p>
+        <p class="tittleP">Hilo, Hawaii 96720</p>
+        <h1>T H Y M E</h1>
+        <br><br/>
+        <div class="border"></div>
+        <table>
+            <tr>
+                <td><a href="page2.html#home" target="_blank" class="linkS">Home</a></td>
+                <td><a href="page2.html#our" target="_blank" class="linkS">Our Vision</a></td>
+                <td><a href="page2.html#menu" target="_blank" class="linkS">Menu</a></td>
+                <td><a href="page2.html#order" target="_blank" class="linkS">Order Online</a></td>
+                <td><a href="page2.html#contact" target="_blank" class="linkS">Contact Us</a></td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="bgImg1"></div>
+    
+    <div id="secondD">
+        <div class="secondD1">
+            <img class="leftImg" id="leftImg1" src="http://cs-server.usc.edu:45678/hw/hw3/images/image3.jpg">
+            <img class="leftImg" id="leftImg2" src="http://cs-server.usc.edu:45678/hw/hw3/images/image2.jpg">
+            <div>
+                <h3>Freshest Island</h3>
+                <h3>food from local vendors</h3>
+                <p>Supporting local economy and the</p>
+                <p>environment. Gluten-free items also</p>
+                <p>available</p>
+                <a href="page2.html#our" target="_blank" class="a2">Read More Here ></a>
+            </div>
+        </div>
+        <div class="secondD2">
+            <div class="rightW">
+                <p class="smallP">OUR RESTAURANT</p>
+                <h3>Local fresh cuisine</h3>
+                <h3>for everyone</h3>
+                <p>Pineapples is a family-owned and operated</p>
+                <p>restaurant, dedicated to providing island fresh</p>
+                <p>cuisine to the east side of the Big Island. Our</p>
+                <p>restaurant is located in the historic Pineapple</p>
+                <p>Building, located in the heart of downtown Hilo.</p>
+                <a href="page2.html#our" target="_blank" class="a2">Read More Here ></a>
+            </div>
+            <img class="rightImg" id="rightImg1" src="http://cs-server.usc.edu:45678/hw/hw3/images/image1.jpg">
+            <img class="rightImg" id="rightImg2" src="http://cs-server.usc.edu:45678/hw/hw3/images/image4.jpg">
+        </div>
+    </div>
+    
+    <div class="upperD">
+        <div class="blank"></div>
+        <div class="withCa">
+            <div class="captionD">
+                <h7>GREENS JUST GOT FASTER!</h7>
+                <a href="page2.html#order" target="_blank" class="a2"><h2>Order Online</h2></a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="UpperDiv">
+        <h5 class="h5style">G o G r e e n M a g . c o m</h5>
+        <h3 class="h3size">“Loved it. We walked in around 6:30 without reservations </h3>
+        <h3 class="h3size">and were seated.</h3>
+        <h3 class="h3size">The coconut crusted ono was on special and perfect.”</h3>
+    </div>
+    
+    <div class="bgImg2"></div>
+    
+    <div class="lastD">
+        <br><br/>
+        <h4>@2017 by Pineapples Hilo Restaurant</h4>
+        <h4>pineappleshilo.com</h4>
+    </div>
+    
+</body>
+</html>
