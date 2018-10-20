@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Travel and Entertainment Search</title>
+        <!-- Skip the download with BootstrapCDN to deliver cached version of Bootstrap’s compiled CSS and JS to your project. -->
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        
+        <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://travelsearch-199905.appspot.com">
+        <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+        <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+        <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+        <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular-animate.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIf8KK0RrwgUeWDCp7xrlZQM7EjBpTdeA&libraries=places" async defer></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.js"></script>
+        <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
+
+<script src="https://cdn.bootcss.com/angular.js/1.5.0-beta.0/angular-sanitize.min.js"></script>
+    <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
+        <link rel="stylesheet" type="text/css" href="/path/to/ABCD.css">
+<script src="https://cdn.bootcss.com/moment.js/2.19.4/moment.min.js"></script>
+        <style>
+            input.error 
+            { 
+                border: 1px solid red; 
+            }
+            .error
+            {
+                color: red;
+            }
+            table{
+                border-bottom: solid 2px rgb(248,248,248);
+                
+            }
+            tr{
+                border-top: solid 2px rgb(248,248,248);
+                height: 50px;
+            }
+            .color tr:nth-child(odd){
+                background-color: rgb(248,248,248);
+            }
+            .color tr:nth-child(even){
+                background-color: white;
+            }
+            #pho1,#pho2,#pho3,#pho4{
+                padding: 1px;
+            }
+            .warn {
+                border: 2px solid red;
+                outline: 0;
+            }
+            
+        </style>
+        
+        <script>
+            
+        var myModule = angular.module("myApp",['ngSanitize']);
+        myModule.controller("formCtrl",function($scope,$http,$compile){
+            var myStore = window.localStorage;
+            myStore.clear();
+            console.log(myStore.length);
+            $scope.myVar = true;
+            $scope.myFa = true;
+            $scope.newD = true;
+            $scope.dete = true;
+            $scope.firNo = true;
+            $scope.errorR = true;
+            $scope.clear =function(){
+                $scope.keyword='';
+                $scope.select='';
+                $scope.distance='';
+                $scope.from='0';
+                $scope.edit='';
+                document.getElementById("autocomplete").disabled=true;
+                $scope.myVar=true;
+            }
+            
+            
+            $scope.$watch('keyword',function(keyword){
+                document.getElementById("myS").disabled=true;
+                //console.log(keyword);
+                          if(keyword!=''&&keyword!=undefined){
+                document.getElementById("myS").disabled=false;
+                            $scope.$watch('from',function(from){
+                //console.log(from);
+                document.getElementById("myS").disabled=true;
+                if(from==1){
+                    $scope.$watch('edit',function(edit){
+                //console.log(edit);
+                          if(edit!=''&&edit!=undefined){
+                document.getElementById("myS").disabled=false;
+            }
+            else document.getElementById("myS").disabled=true;
+                          });
+                }
+                else document.getElementById("myS").disabled=false;
+            });
+            }
+            else document.getElementById("myS").disabled=true;
+                          });
+            //document.getElementById("myS").disabled=true;
+            
+            $("#bar").hide();
+            $("#searchR").hide();
+            //document.getElementById("Pho").style.display="none";
+            $scope.myApp = function(){
+                $("#bar").show();
+                $(function () {
+                    setTimeout(function () {
+                        $("#bar").hide();
+                    }, 1300);
+                })
+                
+                $(function () {
+                    setTimeout(function () {
+                        $("#searchR").show();
+                        $("#firNo1").show();
+                    }, 1500);
+                })
+            //document.getElementById("searchR").style.display="";
+            var test = document.getElementById("here").checked;
+                var fromAAA = 0;
+               var auto = document.getElementById("autocomplete").value;
+                console.log(auto);
+            console.log(test);
+                if(test==true){
+                //var JSONP_CALLBACK;
+                //var promise=$http.get("http://ip-api.com/json");
+                //var a = function getConfig(){return $http.get("http://ip-api.com/json");}
+                xmlhttp = new XMLHttpRequest();
+                xmlhttp.open("GET","http://ip-api.com/json",false);
+                xmlhttp.send();
+                //console.log(xmlhttp.responseText);
+                jsonObj=JSON.parse(xmlhttp.responseText);                               var LAT = jsonObj.lat;
+                var LON = jsonObj.lon;
+                //var root = promise.documentElement;
+                console.log(jsonObj.lat);
+                }
+                else {
+                    fromAAA = 1;
+                //var promise1=$http.get('https://maps.googleapis.com/maps/api/geocode/json?address='+encodeURI($scope.edit)+'&key=AIzaSyDIf8KK0RrwgUeWDCp7xrlZQM7EjBpTdeA');
+                //var a = function getConfig(){return $http.get("http://ip-api.com/json");}
+                xmlhttp = new XMLHttpRequest();
+                xmlhttp.open("GET",'https://maps.googleapis.com/maps/api/geocode/json?address='+encodeURI(auto)+'&key=AIzaSyDIf8KK0RrwgUeWDCp7xrlZQM7EjBpTdeA',false);
+                xmlhttp.send();
+                //console.log(xmlhttp.responseText);
+                jsonObj=JSON.parse(xmlhttp.responseText);
+                      //console.log(jsonObj);
+                      var root = jsonObj.documentElement;
+                      LAT = jsonObj.results[0].geometry.location.lat;
+                      LON = jsonObj.results[0].geometry.location.lng;
+                      console.log(LAT);
+                     }
+                
+                if($scope.select==undefined||$scope.select=='') var Select = 'default';
+                else Select = $scope.select;
+                //$scope.llat=LAT; $scope.llon=LON;
+                var Dis = $scope.distance;
+                if(Dis=="") Dis=10; 
+                $http({
+                    method: "GET", 
+                    url: "https://travelsearch-199905.appspot.com/input",
+                    params:{
+                        keyword:$scope.keyword,
+                        select:Select,
+                        distance:Dis,
+                        from:fromAAA,
+                        edit:auto,
+                        lat:LAT,
+                        lon:LON
+                    }
+                }).then(function successCallback(response) {
+                    console.log(response.data);
+                    var Res = new Array();
+                    var nextp = new Array();
+                    Res[0]= response.data.results
+                    $scope.results = Res[0];
+                    nextp[0] = response.data.next_page_token;
+                    nextPP = nextp[0];
+                    var previousp =0;
+                    console.log(Res[0]);
+                    if(Res[0].length!=0){
+                    console.log(response.data);
+                    //$scope.lat = getlocation.lat;
+                    //$scope.lon = getlocation.lon;
+                    $scope.myVar = false;
+                    $scope.firNo = true;
+                    $scope.errorR = true;
+                    $scope.sR = function(){
+                    $scope.myVar = false;
+                    $scope.myFa = true;
+                    $scope.firNo = true;
+                    }
+                    $scope.sF = function(){
+                    $scope.myVar = true;
+                    $scope.newD = true;
+                    $scope.preBB = true;
+                    $scope.nextBB = true;
+                        console.log(myStore.length);
+                        if(myStore.length!=0){
+                            $scope.myFa = false;
+                            $scope.firNo = true;
+                            var RRR = new Array();
+                            
+                            var context = "";
+                            //$("#faD").empty();
+                            for(i=0;i<myStore.length;i++){
+                                RRR[i]=JSON.parse(myStore.getItem(localStorage.key(i )));
+                                console.log(RRR[i]);
+                                //nameinF = myStore.getItem("Sname"+i+1);
+                                //console.log(nameinF);
+                                var newN = i+1;
+                                idd = "fa"+i;
+                                
+                                //$scope.aaaaa[i] = RRR[i].placedd;
+                                //console.log(a);
+                                
+                            }
+                            console.log(RRR);
+                            $scope.aaaa = RRR;
+                        }
+                        else {
+                            $scope.firNo = false;
+                             }
+                        if(myStore.length>20){
+                            $scope.nextBB = false;
+                        }
+                    }
+                    $scope.delFaa=function(n){
+                       // document.getElementById("fa"+n).style.display="none";
+                        myStore.removeItem(n);
+                       // $("#faD").empty();
+                        console.log(myStore.length);
+                        if(myStore.length==0) {
+                            $scope.firNo = false;
+                            $scope.myFa = true;
+                        }
+                        else{
+                            $scope.myFa = false;
+                            $scope.firNo = true;
+                            var RRR = new Array();
+                            
+                            //var context = "";
+                            for(i=0;i<myStore.length;i++){
+                                RRR[i]=JSON.parse(myStore.getItem(localStorage.key(i )));
+                                console.log(RRR[i]);
+                                //nameinF = myStore.getItem("Sname"+i+1);
+                                //console.log(nameinF);
+                               
+                            }
+                            $scope.aaaa=RRR;
+                        }
+                        console.log(n);
+                    }
+                    
+                    $scope.preB = true;
+                    $scope.nextB = true;
+                    
+                    //console.log(a);
+                    var count = 0;
+                    //var nextPP = nextp[count];
+                    //console.log()
+                    if(nextPP!=undefined){
+                        $scope.nextB = false;
+                        $scope.nextPage = function(){
+                    count = count + 1;
+                $http({
+                    method: "GET", 
+                    url: "https://travelsearch-199905.appspot.com/nextpage",
+                    params:{
+                        nextpage: nextPP
+                    }
+                }).then(function successCallback(response) {
+                    //$scope.name =response.data;
+                    console.log(count);
+                    $scope.preB = false;
+                    Res[count] = response.data.results;
+                    //console.log(count+" "+Res[count]);
+                    nextp[count] = response.data.next_page_token;
+                    $scope.results = Res[count];
+                    nextPP = nextp[count];
+                    //console.log(nextp);
+                    console.log(response.data);
+                    console.log(Res[count].length);
+                    if(nextPP!=undefined) $scope.nextB =false;
+                    else if(nextPP==undefined) {$scope.nextB = true;};
+                    
+                    $scope.prePage= function(){
+                        //$scope.nextB =false;
+                        count = count-1;
+                        $scope.results = Res[count];
+                        nextPP = nextp[count];
+                        //if(nextPP!=undefined) $scope.nextB =false;
+                        //nextp[count] = nextp[count-1];
+                        //console.log(count+" "+Res[count]);
+                        console.log("loop "+count+" "+nextPP);
+                        if(nextPP!=undefined) $scope.nextB =false;
+                    else if(nextPP==undefined) $scope.nextB = true;
+                        //console.log(count);
+                        if(count==0){
+                        $scope.preB = true;
+                        $scope.nextB = false;
+                        }
+                        //return count;
+                        };
+                    
+                    //console.log(response.data);
+                    //return nextp;
+                    //return count;
+                },
+                        function errorCallback(response) {
+          });
+      };
+                        //console.log(nextp);
+                        //console.log(count);
+                    
+                    }
+                    $scope.de = true;
+                    
+                    $scope.details = function(placeID){
+                        $scope.myFa = true;
+                        var map = new google.maps.Map(document.getElementById('map'), {center: {lat: -33.866, lng: 151.196},zoom: 15});
+                        console.log(placeID);
+                        
+                        var PlaceId = placeID;
+                //console.log(PlaceID);
+                        var service = new google.maps.places.PlacesService(map);
+                        service.getDetails({
+                          placeId:placeID  
+                        }, function(place,status){
+                            if(status == google.maps.places.PlacesServiceStatus.OK){
+                                //var namein = encodeURI(place.vicinity);
+                                var textin = encodeURI("Check out "+place.name+" located at "+place.vicinity+". Website:");
+                                console.log(textin);
+                                var urlin = encodeURI(place.url);
+                                var hrefin = "https://twitter.com/intent/tweet?text="+textin+"&url="+urlin+"&hashtags=TravelAndEntertainmentSearch";
+                                document.getElementById("twitterE").innerHTML="<a href="+hrefin+"><img src='http://cs-server.usc.edu:45678/hw/hw8/images/Twitter.png' style='width: 100%;height: 100%'></a>";
+                                var qqq = new Array();
+                            document.getElementById("blS").style.display="";
+                            document.getElementById("yeS").style.display="none";
+                                $scope.Hname = place.name;
+                            //var context = "";
+                            
+                                myStore.getItem(place.id);
+                                console.log(myStore.getItem(place.id));
+                                if(myStore.getItem(place.id)){
+                                    document.getElementById("blS").style.display="none";
+                                    document.getElementById("yeS").style.display="";
+                                }
+                            
+                               
+                                
+                                $scope.addFa = function(){
+                                    document.getElementById("blS").style.display="none";
+                                    document.getElementById("yeS").style.display="";
+                                    //a = myStore.length;
+                                    var ddd ={
+                                        name:place.name,
+                                        icon:place.icon,
+                                        vicinity:place.vicinity,
+                                        placedd:place.id
+                                    }
+                                    console.log(ddd);
+                                    myStore.setItem(place.id,JSON.stringify(ddd));
+                                    //myStore.setItem("SC",place);
+                                }
+                                $scope.delFa = function(){
+                                    document.getElementById("blS").style.display="";
+                                    document.getElementById("yeS").style.display="none";
+                                    
+                                    
+                                    
+                                 myStore.removeItem(place.id);
+                                    //console.log(ddd);
+                                    //myStore.removeItem();
+                                    //myStore.setItem("SC",place);
+                                }
+                                console.log(place);
+                        document.getElementById("getAA").value=place.formatted_address;
+                                document.getElementById("in").style.display="";
+                                //document.getElementById("Pho").style.display="none";
+                                document.getElementById("pho").style.display="none";
+                                document.getElementById("map1").style.display="none";
+                                document.getElementById("rev").style.display="none";
+                                if(place.formatted_address){
+                document.getElementById("address").innerHTML=place.formatted_address;
+                                   }
+                                else{
+                            document.getElementById("Address").style.display="none";
+                               }
+                               
+                                if(place.international_phone_number){
+            document.getElementById("pn").innerHTML=place.international_phone_number;
+                                }
+                                else{
+                                    document.getElementById("PN").style.display="none";
+                                }
+                             //console.log(place.price_level);
+                                if(place.price_level) {
+                                   var money="";
+                                   for(a=place.price_level;a>0;a--){
+                                       money = money+"$";
+                                   }
+                                   if(place.price_level==0) money="$";
+                            document.getElementById("rl").innerHTML=money;
+                               }
+                                else{
+                                document.getElementById("RL").style.display="none";
+                                }
+                                
+                                if(place.rating) {
+                                    var ra = parseFloat(place.rating);
+                                var newR = Math.floor(ra);
+                                    var x = ra-newR;
+                                    if(x>=0.5) newR = newR + 1;
+                                    var star = "";
+                                    for(i=0;i<newR;i++){
+                                        star = star + "<span style='color: red' class='glyphicon glyphicon-star'></span>";
+                                    }
+                            document.getElementById("rating").innerHTML=place.rating+" "+star;
+                                }
+                                else{
+                                    document.getElementById("Rating").style.display="none";
+                                }
+                                
+                                
+                                if(place.url) {
+                                    
+                                    document.getElementById("gp").href=place.url;
+                                document.getElementById("gp1").innerHTML=place.url;
+                                }
+                                else{
+                                    document.getElementById("GP").style.display="none";
+                                }
+                                
+                                if(place.website) {
+                                   document.getElementById("website").href=place.url; document.getElementById("website1").innerHTML=place.website;
+                                }
+                                else{
+                                    document.getElementById("Website").style.display="none";
+                                }
+                                
+                                if(place.opening_hours) {
+                                   var time= place.opening_hours.open_now;
+                                    console.log(time);
+                                    var now = moment().format("d");
+                                    console.log(now);
+                                    var z = place.opening_hours.weekday_text[now-1];
+                                    var zz = z.indexOf(":");
+                                    var nz = z.substring(zz);
+                                    //z.split(": ");
+                                    //z = z[1];
+                                    var httext ="<a style='display:inline' id='ttt'> Daily open hours</a>";
+                                    console.log(nz);
+                                    if(time==true)
+                                       {time="Open now"+nz;} 
+                                    else time="Closed";
+                                    var zzz="<p style='font-weight:bold'>"+place.opening_hours.weekday_text[now-1]+"</p>";
+                                    for(i=0;i<7;i++){
+                                        if(i==now-1){zzz=zzz;}
+                                        else{
+                                            zzz=zzz+"<p>"+place.opening_hours.weekday_text[i]+"</p>";
+                                        }
+                                            
+                                    }
+                                    document.getElementById("truettt").innerHTML=zzz;
+                                  // $scope.tttt= place.opening_hours.weekday_text;
+                             document.getElementById("hours").innerHTML=time+httext;
+                                }
+                                else{
+                                document.getElementById("Hours").style.display="none";
+                                function info(){
+                                document.getElementById("in").style.display="";
+                                document.getElementById("pho").style.display="none";
+                                document.getElementById("map1").style.display="none";
+                                document.getElementById("rev").style.display="none";
+                                }
+                                //return place;
+                                //$scope.addressaa=place.formatted_address;
+                                //console.log(place.formatted_address);
+                            }
+
+                                
+                                $scope.info = function()
+                                {
+                                document.getElementById("in").style.display="";
+                                document.getElementById("pho").style.display="none";
+                                document.getElementById("map1").style.display="none";
+                                document.getElementById("rev").style.display="none";
+                                }
+                                $scope.photos=function(){
+                                document.getElementById("in").style.display="none";
+                                document.getElementById("pho").style.display="";
+                                document.getElementById("map1").style.display="none";
+                                document.getElementById("rev").style.display="none";
+                                }
+                                $scope.map=function(){
+                                document.getElementById("in").style.display="none";
+                                document.getElementById("pho").style.display="none";
+                                document.getElementById("map1").style.display="";
+                                document.getElementById("rev").style.display="none";
+                                    
+                var directionsService = new google.maps.DirectionsService;
+                var directionsDisplay = new google.maps.DirectionsRenderer;
+                var mapaa = new google.maps.Map(document.getElementById('MapR'), {
+                    zoom: 7,
+                    center: {lat: LAT, lng: LON}
+                });
+                directionsDisplay.setMap(mapaa);
+                                    
+                    
+                //document.getElementById('left-panel').innerHTML="";
+                //directionsDisplay.setPanel(document.getElementById('left-panel'));
+                        
+                xmlhttp = new XMLHttpRequest();
+                xmlhttp.open("GET",'https://maps.googleapis.com/maps/api/geocode/json?address='+encodeURI(place.formatted_address)+'&key=AIzaSyDIf8KK0RrwgUeWDCp7xrlZQM7EjBpTdeA',false);
+                xmlhttp.send();
+                //console.log(xmlhttp.responseText);
+                jsonObj1=JSON.parse(xmlhttp.responseText);
+                      //console.log(jsonObj);
+                      var root = jsonObj1.documentElement;
+                      DLAT = jsonObj1.results[0].geometry.location.lat;
+                      DLON = jsonObj1.results[0].geometry.location.lng;
+                console.log(DLAT);                     
+                
+                var panorama = new google.maps.StreetViewPanorama(
+            document.getElementById('pano'), {
+              position: {lat: DLAT, lng: DLON},
+              pov: {
+                heading: 34,
+                pitch: 10
+              }
+            }); 
+                                    console.log(LAT);
+
+                                    //$scope.pano1 = true;
+                                    
+                                    
+                $scope.twodiv =function(){
+                    document.getElementById("MapR").style.visibility="hidden";
+                    document.getElementById("pano").style.visibility="visible";
+                    $scope.pano1 = false;
+                    document.getElementById("twodiv").style.display="none";
+                    document.getElementById("twodiv1").style.display="";
+                }
+                $scope.twodiv1 =function(){
+                    document.getElementById("MapR").style.visibility="visible";
+                    document.getElementById("pano").style.visibility="hidden";
+                    $scope.pano1 = true;
+                    document.getElementById("twodiv").style.display="";
+                    document.getElementById("twodiv1").style.display="none";
+                }
+                  
+                                    
+                $scope.direct = function() {
+                    var mapF = document.getElementById("autocomplete1").value;  
+                    console.log(mapF);
+                    if(mapF!=''){
+                    xmlhttp = new XMLHttpRequest();
+                xmlhttp.open("GET",'https://maps.googleapis.com/maps/api/geocode/json?address='+encodeURI(mapF)+'&key=AIzaSyDIf8KK0RrwgUeWDCp7xrlZQM7EjBpTdeA',false);
+                xmlhttp.send();
+                //console.log(xmlhttp.responseText);
+                jsonObj=JSON.parse(xmlhttp.responseText);
+                      //console.log(jsonObj);
+                      var root = Location.documentElement;
+                      LAT = jsonObj.results[0].geometry.location.lat;
+                      LON = jsonObj.results[0].geometry.location.lng;
+                      console.log(LAT);
+                    }
+                var directionsService = new google.maps.DirectionsService;
+                var directionsDisplay = new google.maps.DirectionsRenderer;
+                var mapaa = new google.maps.Map(document.getElementById('MapR'), {
+                    zoom: 7,
+                    center: {lat: LAT, lng: LON}
+                });
+                            directionsDisplay.setMap(mapaa);
+                   //document.getElementById('left-panel').innerHTML="";
+                    //directionsDisplay.setPanel(document.getElementById('left-panel'));
+        var selectedMode = document.getElementById('mode').value;
+        directionsService.route({
+          origin: {lat: LAT, lng: LON},  // Haight.
+          destination: {lat: DLAT, lng: DLON},  // Ocean Beach.
+          // Note that Javascript allows us to access the constant
+          // using square brackets and a string value as its
+          // "property."
+          travelMode: google.maps.TravelMode[selectedMode],
+            provideRouteAlternatives:true
+        }, function(response, status) {
+          if (status == 'OK') {
+             // console.log(response);
+            
+              //console.log(Sr);
+              //document.getElementById("suggested").innerHTML=Sr;
+    
+              document.getElementById('left-panel').innerHTML="";
+            directionsDisplay.setPanel(document.getElementById('left-panel'));
+            
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+                document.getElementById('mode').addEventListener('change', function() {
+          var directionsService = new google.maps.DirectionsService;
+                var directionsDisplay = new google.maps.DirectionsRenderer;
+                var mapaa = new google.maps.Map(document.getElementById('MapR'), {
+                    zoom: 7,
+                    center: {lat: LAT, lng: LON}
+                });
+                            directionsDisplay.setMap(mapaa);
+                    //document.getElementById('left-panel').innerHTML="";
+                    //directionsDisplay.setPanel(document.getElementById('left-panel'));
+        var selectedMode = document.getElementById('mode').value;
+        directionsService.route({
+          origin: {lat: LAT, lng: LON},  // Haight.
+          destination: {lat: DLAT, lng: DLON},  // Ocean Beach.
+          // Note that Javascript allows us to access the constant
+          // using square brackets and a string value as its
+          // "property."
+          travelMode: google.maps.TravelMode[selectedMode],
+            provideRouteAlternatives:true
+        }, function(response, status) {
+          if (status == 'OK') {
+              //console.log(response);
+              //document.getElementById("suggested").innerHTML=Sr;
+            
+              document.getElementById('left-panel').innerHTML="";
+            directionsDisplay.setPanel(document.getElementById('left-panel'));
+        
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+        });
+
+
+                                }
+                                $scope.reviews=function(){
+                                document.getElementById("in").style.display="none";
+                                document.getElementById("pho").style.display="none";
+                                document.getElementById("map1").style.display="none";
+                                document.getElementById("rev").style.display="";
+                                document.getElementById("Rev").style.display="none";
+                                //document.getElementById("google").style.display="";
+                            
+
+                                }
+                                
+  
+                                    
+                                
+                                
+                                var phoAr = new Array();
+                                phoAr = place.photos;
+                                console.log(phoAr);
+                                var picA1 = '';
+                                var picA2 = '';
+                                var picA3 = '';
+                                var picA4 = '';
+                                if(phoAr){
+                                //document.getElementById("pho").innerHTML = ""
+                                var lll = phoAr.length;
+                                
+                                console.log(lll);
+                                for(i=0;i<lll;i++){
+                                    var Width = place.photos[i].width;
+                                    var Height = place.photos[i].height;
+                                    var n = (i+1)%4;
+                                    //console.log(n);
+                                    if(n==1){
+                                        var picA1 = picA1 + "<a href='"+place.photos[i].getUrl({maxWidth: Width, maxHeight: Height})+"' target='_blank'><img style='width: 100%; height: 100%; border: solid 2px rgb(248,248,248); padding: 2px; border-radius: 4px' src='"+place.photos[i].getUrl({maxWidth: Width, maxHeight: Height})+"'/></a>";
+                                    }
+                                    else if(n==2){
+                                        var picA2 = picA2 + "<a href='"+place.photos[i].getUrl({maxWidth: Width, maxHeight: Height})+"' target='_blank'><img style='width: 100%; height: 100%; border: solid 2px rgb(248,248,248); padding: 2px; border-radius: 4px' src='"+place.photos[i].getUrl({maxWidth: Width, maxHeight: Height})+"'/></a>";
+                                    }
+                                    else if(n==3){
+                                        var picA3 = picA3 + "<a href='"+place.photos[i].getUrl({maxWidth: Width, maxHeight: Height})+"' target='_blank'><img style='width: 100%; height: 100%; border: solid 2px rgb(248,248,248); padding: 2px; border-radius: 4px' src='"+place.photos[i].getUrl({maxWidth: Width, maxHeight: Height})+"'/></a>";
+                                    }
+                                    else if(n==0){
+                                        var picA4 = picA4 + "<a href='"+place.photos[i].getUrl({maxWidth: Width, maxHeight: Height})+"' target='_blank'><img style='width: 100%; height: 100%; border: solid 2px rgb(248,248,248); padding: 2px; border-radius: 4px' src='"+place.photos[i].getUrl({maxWidth: Width, maxHeight: Height})+"'/></a>";
+                                    }
+                                }
+                                //console.log(picA);
+                                    document.getElementById("Pho").style.display="none";
+                                }
+                                else if(phoAr==undefined){     document.getElementById("Pho").style.display="";
+                                }
+                                    document.getElementById("pho1").innerHTML=picA1;
+                                    document.getElementById("pho2").innerHTML=picA2;
+                                    document.getElementById("pho3").innerHTML=picA3;
+                                    document.getElementById("pho4").innerHTML=picA4;
+                                
+                                var revAr = new Array();
+                                
+                            document.getElementById("google").style.display="";
+                            document.getElementById("yelp").style.display="none";
+                                                                    $http({
+                    method: "GET", 
+                    url: "https://travelsearch-199905.appspot.com/yelp",
+                    header:"Access-Control-Allow-Origin",
+                    params:{
+                        yname:place.name,
+                        add1:place.address_components[1].short_name,
+                        add2:place.address_components[2].short_name,
+                        city:place.address_components[3].short_name,
+                        state:place.address_components[5].short_name,
+                        //country:place.address_components[6].short_name
+                    }
+                }).then(function successCallback(response) {
+                                    
+                                      //  console.log(DLAT);
+                                    console.log(response.data);
+                                    if(response.data){
+                                        var Alias = response.data.alias;
+                                        console.log(Alias);
+                                        $http({
+                    method: "GET", 
+                    url: "https://travelsearch-199905.appspot.com/yelpR",
+                    params:{
+                        alias:Alias,
+                        //country:place.address_components[6].short_name
+                    }
+                }).then(function successCallback(response) {
+                                      //  console.log(DLAT);
+                                    console.log(response.data);
+                                    if(response.data){
+                                    document.getElementById("yelp").style.display="";
+                                document.getElementById("Rev").style.display="none";
+                                //document.getElementById("yelp").style.display="";
+                                        var yelpR = new Array();
+                                        yelpR = response.data;
+                                        for(i=0;i<yelpR.length;i++){
+                                        if(yelpR[i].rating){
+                                            var star="";
+                                            for(j=0;j<yelpR[i].rating;j++){
+                                                star = star+"<span style='color: red' class='glyphicon glyphicon-star'></span>";
+                                            }
+                                            yelpR[i].rating = star;
+                                        }
+                                    }
+                                        $scope.yyp = yelpR;
+                                        
+                                    }
+                                    else{
+                                        document.getElementById("Rev").style.display="";
+                                    }
+                                });
+                                    }
+                                    else{
+                            //document.getElementById("rev").style.display="none";
+                            document.getElementById("a6").style.display='none';
+                            document.getElementById("a7").style.display="none";
+                            document.getElementById("a8").style.display="none";
+                            document.getElementById("a9").style.display="none";
+                            document.getElementById("a10").style.display="none";
+                                document.getElementById("Rev").style.display="";
+                                    }
+                                });
+                                
+                                revAr = place.reviews;
+                                console.log(revAr);
+                                var whoR = document.getElementById("whoR").value;
+                                
+                                console.log(whoR);
+                                //console.log($scope.whooo);
+                                //var whoo = $scope.whoo;
+                                var ap='';
+                                var mored='';
+                                //document.getElementById("111").style.display="none";
+                            document.getElementById("a1").style.display='none';
+                            document.getElementById("a2").style.display="none";
+                            document.getElementById("a3").style.display="none";
+                            document.getElementById("a4").style.display="none";
+                            document.getElementById("a5").style.display="none";
+                            document.getElementById("a6").style.display='none';
+                            document.getElementById("a7").style.display="none";
+                            document.getElementById("a8").style.display="none";
+                            document.getElementById("a9").style.display="none";
+                            document.getElementById("a10").style.display="none";
+
+                                if(revAr){
+                                    document.getElementById("Rev").style.display="none";
+                                    for(i=0;i<revAr.length;i++){
+                                        if(revAr[i].rating){
+                                            var star="";
+                                            for(j=0;j<revAr[i].rating;j++){
+                                                star = star+"<span style='color: red' class='glyphicon glyphicon-star'></span>";
+                                            }
+                                            revAr[i].rating = star;
+                                        }
+                                    }
+                                    $scope.aaa =revAr;
+                                    
+                            document.getElementById("a1").style.display='';
+                            document.getElementById("a2").style.display="none";
+                            document.getElementById("a3").style.display="none";
+                            document.getElementById("a4").style.display="none";
+                            document.getElementById("a5").style.display="none";
+                            document.getElementById("a6").style.display='';
+                            document.getElementById("a7").style.display="none";
+                            document.getElementById("a8").style.display="none";
+                            document.getElementById("a9").style.display="none";
+                            document.getElementById("a10").style.display="none";
+                                    
+                        $('#whoR').change(function(){
+                                    whoR=$(this).children('option:selected').val();
+                            if(whoR=="GR"){
+                            document.getElementById("google").style.display="";
+                            document.getElementById("yelp").style.display="none";
+                            } 
+                            else if(whoR=="YR"){
+                            document.getElementById("google").style.display="none";
+                            document.getElementById("yelp").style.display="";
+                            }
+                        });
+                                    
+                                var DR = document.getElementById("DR").value;
+                                    $('#DR').change(function(){
+                                    DR=$(this).children('option:selected').val();
+                                    //getHtml(DR);
+                                    console.log(DR);
+                                    if(DR=="DO"){
+                            document.getElementById("a1").style.display='';
+                            document.getElementById("a2").style.display="none";
+                            document.getElementById("a3").style.display="none";
+                            document.getElementById("a4").style.display="none";
+                            document.getElementById("a5").style.display="none";
+                            document.getElementById("a6").style.display='';
+                            document.getElementById("a7").style.display="none";
+                            document.getElementById("a8").style.display="none";
+                            document.getElementById("a9").style.display="none";
+                            document.getElementById("a10").style.display="none";
+                                    }
+                                    else if(DR=='HR'){
+                            document.getElementById("a1").style.display='none';
+                            document.getElementById("a2").style.display="";
+                            document.getElementById("a3").style.display="none";
+                            document.getElementById("a4").style.display="none";
+                            document.getElementById("a5").style.display="none";
+                            document.getElementById("a6").style.display='none';
+                            document.getElementById("a7").style.display="";
+                            document.getElementById("a8").style.display="none";
+                            document.getElementById("a9").style.display="none";
+                            document.getElementById("a10").style.display="none";
+                                    }
+                                    else if(DR=='LR'){
+                            document.getElementById("a1").style.display='none';
+                            document.getElementById("a2").style.display="none";
+                            document.getElementById("a3").style.display="";
+                            document.getElementById("a4").style.display="none";
+                            document.getElementById("a5").style.display="none";
+                            document.getElementById("a6").style.display='none';
+                            document.getElementById("a7").style.display="none";
+                            document.getElementById("a8").style.display="";
+                            document.getElementById("a9").style.display="none";
+                            document.getElementById("a10").style.display="none"; 
+                                    }
+                                    else if(DR=='MR'){
+                            document.getElementById("a1").style.display='none';
+                            document.getElementById("a2").style.display="none";
+                            document.getElementById("a3").style.display="none";
+                            document.getElementById("a4").style.display="";
+                            document.getElementById("a5").style.display="none";
+                            document.getElementById("a6").style.display='none';
+                            document.getElementById("a7").style.display="none";
+                            document.getElementById("a8").style.display="none";
+                            document.getElementById("a9").style.display="";
+                            document.getElementById("a10").style.display="none";
+                                    }
+                                    else if(DR=='LR2'){
+                            document.getElementById("a1").style.display='none';
+                            document.getElementById("a2").style.display="none";
+                            document.getElementById("a3").style.display="none";
+                            document.getElementById("a4").style.display="none";
+                            document.getElementById("a5").style.display=""; 
+                            document.getElementById("a6").style.display='none';
+                            document.getElementById("a7").style.display="none";
+                            document.getElementById("a8").style.display="none";
+                            document.getElementById("a9").style.display="none";
+                            document.getElementById("a10").style.display="";
+                                    }
+
+                                    });
+                                    
+                            document.getElementById("senNo").style.display="none";
+                                    //nnn = revAr.length;
+                                    //$scope.aaa = nnn;
+                                    
+                                }
+                                else if(revAr==undefined){
+                                    document.getElementById("senNo").style.display="";
+                                                         }
+                                $('#whoR').change(function(){
+                                    whoR=$(this).children('option:selected').val();
+                                    console.log(whoR);
+                                    
+                                    
+                                });
+                                
+                    
+       
+                                //console.log(DR);
+                                
+                                //else document.getElementById("rev").innerHTML = "<h1>no reviews</h1>";
+                            
+                        }
+                                          //console.log(a);
+                        });
+                        
+                        $scope.addressaa = "aaa";
+                        //console.log(place);
+                        $scope.de = false;
+                        $scope.dete = false;
+                        $scope.myVar = true;
+                        $scope.newD = false;
+                    };
+                    $scope.list = function(){
+                        //console.log(placeID);
+                        //$scope.de = false;
+                        $scope.myVar = false;
+                        $scope.newD = true;
+                        document.getElementById("Address").style.display="";
+                        document.getElementById("PN").style.display="";
+                        document.getElementById("RL").style.display="";
+                        document.getElementById("Rating").style.display="";
+                        document.getElementById("GP").style.display="";
+                        document.getElementById("Hours").style.display="";
+                        document.getElementById("whoR").value="GR";
+                        document.getElementById("senNo").style.display="none";
+                    };
+
+      }
+                    else{
+                        $scope.firNo = false;
+                        $scope.myVar = true;
+                        $scope.errorR = true;
+                    }
+                },
+                        function errorCallback(response) {
+                    $scope.errorR = false;
+                    $scope.myVar = true;
+                    $scope.firNo = true;
+          });
+      };
+        });
+            
+            
+    </script>
+        
+
+        
+        <!--
+        <script type="text/javascript">
+            jQuery.validator.addMethod("noSpace",function(value,element){
+                return value.indexOf(" ") < 0 && value != "";
+            }, $.validator.format("Please enter a keyword."));
+            
+            $.validator.setDefaults({
+                submitHandler: function() {
+                    alert("Error!");
+                }
+            });
+            
+            $().ready(function() {
+                var validator = $("#form1").validate({
+                    errorPlacement: function(error, element) {
+                        $( element )
+                            .closest( "form" )
+                            .append( error );
+                    },
+                    errorElement: "span",
+                    messages: {
+                        keyword: {
+                            required: "Please enter a keyword."
+                        }
+                    }
+                });
+                
+                $(".cancel").click(function() {
+                    validator.resetForm();
+                });
+            });
+            
+        </script>
+        -->
+        
+    </head>
+    <body>
+        
+        <div class="container" ng-app="myApp" ng-controller="formCtrl">
+            <div style="border: solid 2px gainsboro; border-radius: 6px">
+        <form id="from1" style="background-color: rgb(248,248,248)" name="form" novalidate>
+           <div class="row">
+               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                   <div class="header">
+                       <p style="text-align: center">Travel and Entertainment Search</p>
+                   </div>
+               </div>
+            </div> 
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <p style="white-space: nowrap; display: inline">Keyword</p>
+                    <p style="color: red; white-space: nowrap; display: inline">*</p>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div>
+                        <input class="form-control input-sm" type="text" id="keyword" ng-model="keyword" name="keyword" ng-class="{warn:form.keyword.$error.required&&!form.keyword.$pristine}" required>
+                        <span ng-show="form.keyword.$error.required&&!form.keyword.$pristine" style="color: red">Please enter a keyword.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <p>Category</p>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" class="input-group">
+                            <select class="form-control input-sm" name="select" ng-model="select">
+                                <option value="">Default</option>
+                                <option value="airport">Airport</option>
+                                <option value="amusement_park">Amusement Park</option>
+                                <option value="aquarium">Aquarium</option>
+                                <option value="art_gallery">Art Gallery</option>
+                                <option value="bakery">Bakery</option>
+                                <option value="bar">Bar</option>
+                                <option value="beauty_salon">Beauty Salon</option>
+                                <option value="bowling_alley">Bowling Alley</option>
+                                <option value="bus_station">Bus Station</option>
+                                <option value="cafe">Cafe</option>
+                                <option value="campground">Campground</option>
+                                <option value="car_rental">Car Rental</option>
+                                <option value="casino">Casino</option>
+                                <option value="lodging">Lodging</option>
+                                <option value="movie_theater">Movie Theater</option>
+                                <option value="museum">Museum</option>
+                                <option value="night_club">Night Club</option>
+                                <option value="park">Park</option>
+                                <option value="parking">Parking</option>
+                                <option value="restaurant">Restaurant</option>
+                                <option value="shopping_mall">Shopping Mall</option>
+                                <option value="stadium">Stadium</option>
+                                <option value="subway_station">Subway Station</option>
+                                <option value="train_station">Train Station</option>
+                                <option value="transit_station">Transit Station</option>
+                                <option value="travel_agency">Travel Agency</option>
+                                <option value="zoo">Zoo</option>
+                            </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <p>Distance(miles)</p>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <div class="input-group">
+                            <input class="form-control input-sm" type="text" placeholder="10" name="distance" ng-model="distance" value="10">
+                        </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <p style="white-space: nowrap; display: inline">From</p>
+                    <p style="color: red; white-space: nowrap; display: inline">*</p>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="input-group">
+                            <input type="radio" name="from" id="here" ng-model="from" onfocus="choose()" value="0" ng-checked="true" checked> Current location
+                            <br>
+                            <!--<br> doesn't work-->
+                            <input type="radio" name="from" ng-model="from" id="other" onfocus="choose()" value="1" ng-click="choose()"> 
+                            <lable>
+                                Other. Please specify:
+                            </lable>
+                            <input id="autocomplete" name="edit" style="margin-left: 15px" class="form-control input-sm" type="text" ng-model="edit" placeholder="Enter a location" onclick="initAutocomplete()" ng-class="{warn:form.edit.$error.required&&!form.edit.$pristine}" disabled required>
+                            <span ng-show="form.edit.$error.required&&!form.edit.$pristine" style="color: red;float: left;
+    margin-left: 15px">Please enter a location.</span>
+                        </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <button type="button" ng-click="myApp()" id="myS" class="btn btn-default" disabled="true"><span class="glyphicon glyphicon-search"></span> Search</button>
+                        <button ng-click="clear()" class="btn btn-default">Clear</button>
+                </div>
+                <br>
+            </div>
+            </form>
+            </div>
+            <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center">
+                    <br>
+                    <button class="btn btn-default" ng-click="sR()">Results</button>
+                    <button class="btn btn-default" ng-click="sF()">Favorites</button>
+                    <br>
+                </div>
+            </div>
+        </div>
+            <div style="height: 50px"></div>
+        <div class="progress progress-bar-striped active" id="bar" style="height: 10px">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+            </div>
+        </div>
+        <div class="alert alert-danger" role="alert" ng-hide="errorR">
+            Failed  to get search results.
+        </div>
+        <div class="alert alert-warning" role="alert" ng-hide="firNo" id="firNo1">
+                No records
+        </div>
+        <div id="searchR" ng-hide="myVar" class="container">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: right"><button type="button" class="btn btn-default" ng-disabled="de">Details<span class="glyphicon glyphicon-chevron-right"></span></button></div>
+            <div>
+                <table>
+                    <tr class="row" style="font-weight: bold">
+                        <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1">#</td>
+                        <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="text-align: left">Category</td>
+                        <td class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Name</td>
+                        <td class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Address</td>
+                        <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Favorite</td>
+                        <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Details</td>
+                    </tr>
+                    <tr ng-repeat="x in results" class="row">
+                        <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><p style="font-weight: bold">{{$index+1}}</p></td>
+                        <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="text-align: left"><img src="{{x.icon}}" style="width: 40px; height: 40px"></td>
+                        <td class="col-xs-3 col-sm-3 col-md-3 col-lg-3">{{x.name}}</td>
+                        <td class="col-xs-3 col-sm-3 col-md-3 col-lg-3">{{x.vicinity}}</td>
+                        <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-star-empty"></span></button></td>
+                        <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><button type="button" class="btn btn-default" ng-click="details(x.place_id)"><span class="glyphicon glyphicon-chevron-right"></span></button></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center">
+                    <br>
+                    <button class="btn btn-default" ng-hide="preB" ng-click="prePage()" ng-app="myApp" ng-controller="formCtrl">Previous</button>
+                    <button class="btn btn-default" ng-hide="nextB" ng-click="nextPage()" ng-app="myApp" ng-controller="formCtrl">Next</button>
+                    
+                    <br>
+                </div>
+            </div>
+            </div>
+        <div id="favorite" ng-hide="myFa" class="container">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: right"><button type="button" class="btn btn-default" ng-disabled="de">Details<span class="glyphicon glyphicon-chevron-right"></span></button></div>
+            <div class="container" style="width: 100%">
+                <table>
+                    <tr class="row" style="font-weight: bold">
+                        <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1">#</td>
+                        <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="text-align: left">Category</td>
+                        <td class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Name</td>
+                        <td class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Address</td>
+                        <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Favorite</td>
+                        <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Details</td>
+                    </tr>
+                    <tr class='row' ng-repeat='ddd in aaaa'>
+                        <td class='col-xs-1 col-sm-1 col-md-1 col-lg-1'><p style='font-weight: bold'>{{$index+1}}</p></td>
+                        <td class='col-xs-1 col-sm-1 col-md-1 col-lg-1' style='text-align: left'><img src='{{ddd.icon}}' style='width: 40px; height: 40px'></td>
+                        <td class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>{{ddd.name}}</td>
+                        <td class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>{{ddd.vicinity}}</td>
+                        <td class='col-xs-2 col-sm-2 col-md-2 col-lg-2'><button type='button' class='btn btn-default' ng-click='delFaa(ddd.placedd)'><span class='glyphicon glyphicon-trash'></span></button></td>
+                        <td class='col-xs-2 col-sm-2 col-md-2 col-lg-2'><button type='button' class='btn btn-default' ng-click='details(ddd.placedd)'><span class='glyphicon glyphicon-chevron-right'></span></button></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center">
+                    <br>
+                    <button class="btn btn-default" ng-hide="preBB" ng-click="prePage1()" ng-app="myApp" ng-controller="formCtrl">Previous</button>
+                    <button class="btn btn-default" ng-hide="nextBB" ng-click="nextPage1()" ng-app="myApp" ng-controller="formCtrl">Next</button>
+                    
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div ng-hide="newD" class="container" id="newD1">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center"><h2>{{Hname}}</h2></div>
+            </div>
+            <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="text-align: left"><button type="button" class="btn btn-default" ng-click="list()" ><span class="glyphicon glyphicon-chevron-left"></span>List</button>  
+            </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="text-align: right">
+                <button type='button' class='btn btn-default' ng-click='addFa()' id='blS'><span class='glyphicon glyphicon-star-empty'></span>
+                </button>
+                    
+                    <button type="button" class="btn btn-default" ng-click="delFa()" id="yeS" style="color: yellow;display: none"><span class="glyphicon glyphicon-star"></span></button>
+
+                    
+                <button type="button" style="width: 40px; height: 34px; float: right; border-radius: 4px; padding: 0" id="twitterE"></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: right; border-bottom: 1px solid transparent" ng-hide="Dete">
+                    <button type="button" class="btn btn-default" style="margin-left: -5px" ng-click="info()">Info</button>
+                    <button type="button" class="btn btn-default" style="margin-left: -5px" ng-click="photos()">Photos</button>
+                    <button type="button" class="btn btn-default" style="margin-left: -5px" ng-click="map()">Map</button>
+                    <button type="button" class="btn btn-default" style="margin-left: -5px" ng-click="reviews()">Reviews</button>
+                    <br>
+                </div>
+            </div>
+
+            <div id="in">
+                <div>
+            <table class="color" ng-model="infoD" style="width: 100%;position: relative">
+                <tr class="row" id="Address">
+                    <td style="font-weight: bold" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Address</td>
+                    <td class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><p id="address"></p></td>
+                </tr>
+                <tr class="row" id="PN">
+                    <td style="font-weight: bold" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Phone Number</td>
+                    <td class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><p id="pn"></p></td>
+                </tr>
+                <tr class="row" id="RL">
+                    <td style="font-weight: bold" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Price Level</td>
+                    <td class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><p id="rl"></p></td>
+                </tr>
+                <tr class="row" id="Rating">
+                    <td style="font-weight: bold" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Rating</td>
+                    <td class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><p id="rating"></p></td>
+                </tr>
+                <tr class="row" id="GP">
+                    <td style="font-weight: bold" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Google Page</td>
+                    <td class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><a href='' id="gp" target="_blank"><p id="gp1"></p></a></td>
+                </tr>
+                <tr class="row" id="Website">
+                    <td style="font-weight: bold" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Website</td>
+                    <td class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><a href='' id="website" target="_blank"><p id="website1"></p></a>
+                    </td>
+                </tr>
+                <tr class="row" id="Hours">
+                    <td style="font-weight: bold" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Hours</td>
+                    <td class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><p id="hours"></p></td>
+                </tr>
+            </table>
+                </div>
+            <div id="ttt" style="width: 50%" class="alert alert-light" role="alert">
+                <h3 class="alert-heading">Open hours</h3>
+                <div id="truettt"></div>
+                <div><button class="btn btn-default" style="float: right">Close</button></div>
+            </div>
+            </div>
+            <div style="width: 100%" id="pho">
+                <div id="pho1" class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                <div id="pho2" class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                <div id="pho3" class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                <div id="pho4" class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                <div id="Pho">
+                    <div class="alert alert-warning" role="alert">
+                    No records
+                    </div>
+                </div>
+            </div>
+            <div id="map1">
+                <div class="row">
+                    <p style="display: inline" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">From</p>
+                    <p style="display: inline" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">To</p>
+                    <p style="display: inline" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">Travel Mode</p>
+                </div>
+                <div class="row">
+                    <form>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <input id="autocomplete1" class="form-control input-sm" type="text" ng-model="mapF" placeholder="Your location" onclick="initAutocomplete1()">
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <input class="form-control input-sm" type="text" id="getAA" disabled>
+                        </div>
+                        
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" class="input-group">
+                        <select class="form-control input-sm" id="mode">
+                            <option value="DRIVING">Driving</option>
+                            <option value="BICYCLING">Bicycling</option>
+                            <option value="TRANSIT">Transit</option>
+                            <option value="WALKING">Walking</option>
+                        </select>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <button type="submit" class="btn btn-default" ng-click="direct()" style="height: 30px">Get Directions</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="row">
+                    <div style="width: 70px" class="col-xs-2 col-sm-2 col-md-2 col-lg-2" ng-click="twodiv()" id="twodiv"><button type="button" style=" border-radius: 4px;height: 100%;padding: 1px"><img style="width: 100%" src="http://cs-server.usc.edu:45678/hw/hw8/images/Pegman.png"></button></div>
+                    <div style="width: 70px; display: none" class="col-xs-2 col-sm-2 col-md-2 col-lg-2" ng-click="twodiv1()" id="twodiv1"><button type="button" style=" border-radius: 4px;height: 100%;padding: 1px"><img style="width: 100%" src="http://cs-server.usc.edu:45678/hw/hw8/images/Map.png"></button></div>
+                </div>
+                <div class="row">
+                <div id="MapR" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="height: 350px; visibility: visible"></div>
+                </div>
+                <div class="row">
+                    <div id="pano" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="height: 350px; display: block; margin-top: -350px; visibility: hidden"></div>
+                </div>
+                <div class="row">
+                    <div id="suggested" style="border: solid 2px rgb(248,248,248)">
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="left-panel"></div>
+                </div>
+            </div>
+            <div id="rev" style="width: 100%">
+                <div class="row">
+                <form>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <select class="form-control input-sm" id="whoR">
+                        <option value="GR">Google reviews</option>
+                        <option value="YR">Yelp reviews</option>
+                    </select>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <select class="form-control input-sm" id="DR">
+                        <option value="DO">Default Order</option>
+                        <option value="HR">Highest Rating</option>
+                        <option value="LR">Lowest Rating</option>
+                        <option value="MR">Most Recent</option>
+                        <option value="LR2">Least Recent</option>
+                    </select>
+                    </div>
+                </form>
+                </div>
+                <div id="showre" style="padding: 2px; width: 100%">
+                    <div id="google">
+                    <div id="a1">
+                    <div ng-repeat="XX in aaa" class="row" style="border-radius: 4px; margin-top: 2px; border: solid 2px rgb(248,248,248)">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="AP" style="float: left"><img style="margin-top: 10px; width: 100%" src="{{XX.profile_photo_url}}"></div>
+                    <diV class="col-xs-10 col-sm-10 col-md-10 col-lg-10" style="float: left" id="moreD">
+                        <div id="revN">
+                            <p style="font-weight: bold; color: cornflowerblue">{{XX.author_name}}</p></div>
+                        <div id="revR">
+                            <p style="display: inline; color: red" ng-bind-html="XX.rating"></p>
+                                <p style="color: gray; display: inline">{{XX.time*1000|date:'yyyy-MM-dd hh:mm:ss'}}</p>
+                                </div>
+                        <div id="revD"><p>{{XX.text}}</p></div>
+                    </diV>
+                    </div>
+                    </div>
+                    <div id="a2">
+                    <div ng-repeat="XX in aaa|orderBy:'-rating'" class="row" style="border-radius: 4px; margin-top: 2px; border: solid 2px rgb(248,248,248)">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="AP" style="float: left"><img style="margin-top: 10px; width: 100%" src="{{XX.profile_photo_url}}"></div>
+                    <diV class="col-xs-10 col-sm-10 col-md-10 col-lg-10" style="float: left" id="moreD">
+                        <div id="revN">
+                            <p style="font-weight: bold; color: cornflowerblue">{{XX.author_name}}</p></div>
+                        <div id="revR">
+                            <p style="display: inline; color: red" ng-bind-html="XX.rating"></p>
+                                <p style="color: gray; display: inline">{{XX.time*1000|date:'yyyy-MM-dd hh:mm:ss'}}</p>
+                                </div>
+                        <div id="revD"><p>{{XX.text}}</p></div>
+                    </diV>
+                    </div>
+                    </div>
+                    <div id="a3">
+                    <div ng-repeat="XX in aaa|orderBy:'rating'" class="row" style="border-radius: 4px; margin-top: 2px; border: solid 2px rgb(248,248,248)">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="AP" style="float: left"><img style="margin-top: 10px; width: 100%" src="{{XX.profile_photo_url}}"></div>
+                    <diV class="col-xs-10 col-sm-10 col-md-10 col-lg-10" style="float: left" id="moreD">
+                        <div id="revN">
+                            <p style="font-weight: bold; color: cornflowerblue">{{XX.author_name}}</p></div>
+                        <div id="revR">
+                            <p style="display: inline; color: red" ng-bind-html="XX.rating"></p>
+                                <p style="color: gray; display: inline">{{XX.time*1000|date:'yyyy-MM-dd hh:mm:ss'}}</p>
+                                </div>
+                        <div id="revD"><p>{{XX.text}}</p></div>
+                    </diV>
+                    </div>
+                    </div>
+                    <div id="a4">
+                    <div ng-repeat="XX in aaa|orderBy:'-time'" class="row" style="border-radius: 4px; margin-top: 2px; border: solid 2px rgb(248,248,248)">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="AP" style="float: left"><img style="margin-top: 10px; width: 100%" src="{{XX.profile_photo_url}}"></div>
+                    <diV class="col-xs-10 col-sm-10 col-md-10 col-lg-10" style="float: left" id="moreD">
+                        <div id="revN">
+                            <p style="font-weight: bold; color: cornflowerblue">{{XX.author_name}}</p></div>
+                        <div id="revR">
+                            <p style="display: inline; color: red" ng-bind-html="XX.rating"></p>
+                                <p style="color: gray; display: inline">{{XX.time*1000|date:'yyyy-MM-dd hh:mm:ss'}}</p>
+                                </div>
+                        <div id="revD"><p>{{XX.text}}</p></div>
+                    </diV>
+                    </div>
+                    </div>
+                    <div id="a5">
+                    <div ng-repeat="XX in aaa|orderBy:'time'" class="row" style="border-radius: 4px; margin-top: 2px; border: solid 2px rgb(248,248,248)" id="555">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="AP" style="float: left"><img style="margin-top: 10px; width: 100%" src="{{XX.profile_photo_url}}"></div>
+                    <diV class="col-xs-10 col-sm-10 col-md-10 col-lg-10" style="float: left" id="moreD">
+                        <div id="revN">
+                            <p style="font-weight: bold; color: cornflowerblue">{{XX.author_name}}</p></div>
+                        <div id="revR">
+                            <p style="display: inline; color: red" ng-bind-html="XX.rating"></p>
+                                <p style="color: gray; display: inline">{{XX.time*1000|date:'yyyy-MM-dd hh:mm:ss'}}</p>
+                                </div>
+                        <div id="revD"><p>{{XX.text}}</p></div>
+                    </diV>
+                    </div>
+                    </div>
+                    <div class="alert alert-warning" role="alert" id="senNo" style="display: none">
+                            No records
+                        </div>
+                    </div>
+                    
+                    <div id="yelp" style="display: none">
+                    <div id="a6">
+                    <div ng-repeat="yy in yyp" class="row" style="border-radius: 4px; margin-top: 2px; border: solid 2px rgb(248,248,248)">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="AP" style="float: left"><img style="margin-top: 10px; width: 100%" src="{{yy.user.image_url}}"></div>
+                    <diV class="col-xs-10 col-sm-10 col-md-10 col-lg-10" style="float: left" id="moreD">
+                        <div id="revN">
+                            <p style="font-weight: bold; color: cornflowerblue">{{yy.user.name}}</p></div>
+                        <div id="revR">
+                            <p style="display: inline; color: red" ng-bind-html="yy.rating"></p>
+                                <p style="color: gray; display: inline">{{yy.time_created}}</p>
+                                </div>
+                        <div id="revD"><p>{{yy.text}}</p></div>
+                    </diV>
+                    </div>
+                    </div>
+                    <div id="a7">
+                    <div ng-repeat="yy in yyp|orderBy:'-rating'" class="row" style="border-radius: 4px; margin-top: 2px; border: solid 2px rgb(248,248,248)">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="AP" style="float: left"><img style="margin-top: 10px; width: 100%" src="{{yy.user.image_url}}"></div>
+                    <diV class="col-xs-10 col-sm-10 col-md-10 col-lg-10" style="float: left" id="moreD">
+                        <div id="revN">
+                            <p style="font-weight: bold; color: cornflowerblue">{{yy.user.name}}</p></div>
+                        <div id="revR">
+                            <p style="display: inline; color: red" ng-bind-html="yy.rating"></p>
+                                <p style="color: gray; display: inline">{{yy.time_created}}</p>
+                                </div>
+                        <div id="revD"><p>{{yy.text}}</p></div>
+                    </diV>
+                    </div>
+                    </div>
+                    <div id="a8">
+                    <div ng-repeat="yy in yyp|orderBy:'rating'" class="row" style="border-radius: 4px; margin-top: 2px; border: solid 2px rgb(248,248,248)">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="AP" style="float: left"><img style="margin-top: 10px; width: 100%" src="{{yy.user.image_url}}"></div>
+                    <diV class="col-xs-10 col-sm-10 col-md-10 col-lg-10" style="float: left" id="moreD">
+                        <div id="revN">
+                            <p style="font-weight: bold; color: cornflowerblue">{{yy.user.name}}</p></div>
+                        <div id="revR">
+                            <p style="display: inline; color: red" ng-bind-html="yy.rating"></p>
+                                <p style="color: gray; display: inline">{{yy.time_created}}</p>
+                                </div>
+                        <div id="revD"><p>{{yy.text}}</p></div>
+                    </diV>
+                    </div>
+                    </div>
+                    <div id="a9">
+                    <div ng-repeat="yy in yyp|orderBy:'-time_created'" class="row" style="border-radius: 4px; margin-top: 2px; border: solid 2px rgb(248,248,248)">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="AP" style="float: left"><img style="margin-top: 10px; width: 100%" src="{{yy.user.image_url}}"></div>
+                    <diV class="col-xs-10 col-sm-10 col-md-10 col-lg-10" style="float: left" id="moreD">
+                        <div id="revN">
+                            <p style="font-weight: bold; color: cornflowerblue">{{yy.user.name}}</p></div>
+                        <div id="revR">
+                            <p style="display: inline; color: red" ng-bind-html="yy.rating"></p>
+                                <p style="color: gray; display: inline">{{yy.time_created}}</p>
+                                </div>
+                        <div id="revD"><p>{{yy.text}}</p></div>
+                    </diV>
+                    </div>
+                    </div>
+                    <div id="a10">
+                    <div ng-repeat="yy in yyp|orderBy:'time_created'" class="row" style="border-radius: 4px; margin-top: 2px; border: solid 2px rgb(248,248,248)">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="AP" style="float: left"><img style="margin-top: 10px; width: 100%" src="{{yy.user.image_url}}"></div>
+                    <diV class="col-xs-10 col-sm-10 col-md-10 col-lg-10" style="float: left" id="moreD">
+                        <div id="revN">
+                            <p style="font-weight: bold; color: cornflowerblue">{{yy.user.name}}</p></div>
+                        <div id="revR">
+                            <p style="display: inline; color: red" ng-bind-html="yy.rating"></p>
+                                <p style="color: gray; display: inline">{{yy.time_created}}</p>
+                                </div>
+                        <div id="revD"><p>{{yy.text}}</p></div>
+                    </diV>
+                    </div>
+                    </div>
+                    
+                    </div>
+                    <div class="alert alert-warning" role="alert" id="Rev">
+                            No records
+                    </div>
+                </div>
+                
+            </div>
+            </div>
+            <div id="map"></div>
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        <script>
+            function choose(){
+                if(document.getElementById("here").checked==true){
+                    document.getElementById("autocomplete").disabled=false;
+                    document.getElementById("autocomplete").required=true;
+                    
+                }
+                else if(document.getElementById("other").checked==true){
+                    document.getElementById("autocomplete").disabled=true;
+                    document.getElementById("autocomplete").required=false;
+                }
+            }
+            function clear(){
+                document.getElementById("keyword").value="";
+                document.getElementById("searchR").style.display="none";
+                document.getElementById("favorite").style.display="none";
+                document.getElementById("newD1").style.display="none";
+            }
+            
+            
+        </script>
+        
+        
+        <script>
+            // This example displays an address form, using the autocomplete feature of the Google Places API to help users fill in the information.
+        
+            // This example requires the Places library. Include the libraries=places parameter when you first load the API. For example:
+            // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+            
+            var placeSearch, autocomplete;
+            
+            function initAutocomplete() {
+                // Create the autocomplete object, restricting the search to geographical location types.
+                autocomplete = new google.maps.places.Autocomplete(
+                    /** @type{!HTMLInputElement}*/
+                    (document.getElementById('autocomplete')),{types: ['geocode']});
+                // When the user selects an address from the dropdown, populate the address fields in the form.
+            }
+            
+            function initAutocomplete1() {
+                // Create the autocomplete object, restricting the search to geographical location types.
+                autocomplete = new google.maps.places.Autocomplete(
+                    /** @type{!HTMLInputElement}*/
+                    (document.getElementById('autocomplete1')),{types: ['geocode']});
+                // When the user selects an address from the dropdown, populate the address fields in the form.
+            }
+            
+ 
+            
+
+            
+            // Bias the autocomplete object to the user's geographical location, as supplied by the browser's 'navigator.geolocation' object.
+            
+        </script>
+        
+        
+
+        
+    </body>
+</html>
